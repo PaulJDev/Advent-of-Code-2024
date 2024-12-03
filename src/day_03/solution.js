@@ -1,7 +1,4 @@
-const fs = require('fs')
-
-// const input = await Deno.readTextFile("src/day_03/input.txt");
-const input = fs.readFileSync("src/day_03/input.txt", "utf-8");
+const input = await Deno.readTextFile("src/day_03/input.txt");
 
 const solutionPartOne = 
     input.match(/mul(\(\d{1,3},\d{1,3}\))/g)
