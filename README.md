@@ -36,6 +36,12 @@ To run the tests, use the following command:
 $ deno task test
 ```
 
+## How to create a new day
+
+```sh
+$ deno run new
+```
+
 ## How to format
 
 To format the code, use the following command:
