@@ -1,6 +1,6 @@
 import * as path from 'jsr:@std/path'
 
-const { join, dirname } = path
+const { join } = path
 const projectDirectory = path.resolve('.')
 const src = join(projectDirectory, 'src')
 const tests = join(projectDirectory, 'tests')
@@ -10,10 +10,14 @@ const newDayRaw = day ?? (await getDay(src))
 const newDay = `day_${newDayRaw.toString().padStart(2, '0')}`
 console.log(`Creating new day: ${newDay}`)
 
-await createSrcFile(src, newDay, newDayRaw)
-await createTestFile(tests, newDay, newDayRaw)
+const create = createFiles(newDay, newDayRaw)
 
-async function createSrcFile(src, day, dayRaw) {
+await Promise.all([
+  create.srcFile(src),
+  create.testFile(tests),
+])
+
+async function srcFile(src, day) {
   const FILE_NAME = 'index.js'
   const README = 'README.md'
 
@@ -46,7 +50,7 @@ export const main = async () => {
   await Deno.writeTextFile(readmePath, readmeContent)
 }
 
-async function createTestFile(tests, day, dayRaw) {
+async function testFile(tests, day, dayRaw) {
   const FILE_NAME = `${day}.test.js`
 
   const nextDayTestPath = join(tests, FILE_NAME)
@@ -77,6 +81,13 @@ Deno.test({
 })
 `
   await Deno.writeTextFile(nextDayTestPath, testContent)
+}
+
+function createFiles(day, dayRaw) {
+  return {
+    testFile: (tests) => testFile(tests, day, dayRaw),
+    srcFile: (src) => srcFile(src, day, dayRaw),
+  }
 }
 
 async function getDay(src) {
