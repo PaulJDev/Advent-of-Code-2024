@@ -1,5 +1,5 @@
 
-const input = await Deno.readTextFile("src/day_02/input.txt");
+const input = await Deno.readTextFile("src/day_01/input.txt");
 
 const [listOne, listTwo] = input
     .replace(/\r/g, '')
