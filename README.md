@@ -1,5 +1,15 @@
 # Advent Of Code 2024
 
+Advent of Code solved in Deno 🦕.
+
+## Challenges
+
+| DAY                                                              | STARS | SOLUTION              | RESPONSE PART ONE | RESPONSE PART TWO |
+| ---------------------------------------------------------------- | ----- | --------------------- | ----------------- | ----------------- |
+| [Day 1: Historian Hysteria](https://adventofcode.com/2024/day/1) | \*\*  | [Link](./src/day_01/) | 2815556           | 23927637          |
+| [Day 2: Red-Nosed Reports](https://adventofcode.com/2024/day/2)  | \*\*  | [Link](./src/day_02/) | 402               | 455               |
+| [Day 3: Mull It Over](https://adventofcode.com/2024/day/3)       | \*\*  | [Link](./src/day_03/) | 171183089         | 63866497          |
+
 ## How to run
 
 To run the solution for a specific day, use the following command:
