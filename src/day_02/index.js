@@ -10,14 +10,14 @@ const isSafeWithOneRemoval = (arr) =>
     return numbersAsc(modifiedArray) || numbersDesc(modifiedArray)
   }, false)
 
-const solvePartOne = (input) =>
+export const solvePartOne = (input) =>
   input.split('\n').reduce((acc, curr) => {
     const numbers = curr.split(' ').map(Number)
     const isSafe = numbersAsc(numbers) || numbersDesc(numbers)
     return isSafe ? acc + 1 : acc
   }, 0)
 
-const solvePartTwo = (input) =>
+export const solvePartTwo = (input) =>
   input.split('\n').reduce((acc, curr) => {
     const numbers = curr.split(' ').map(Number)
     const isSafe = numbersAsc(numbers) || numbersDesc(numbers) ||

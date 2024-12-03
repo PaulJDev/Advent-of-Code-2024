@@ -1,4 +1,4 @@
-const solvePartOne = (input) => {
+export const solvePartOne = (input) => {
   const sortAsc = (arr) => arr.sort((a, b) => a - b)
 
   const [listOne, listTwo] = input
@@ -18,7 +18,7 @@ const solvePartOne = (input) => {
   )
 }
 
-const solvePartTwo = (input) => {
+export const solvePartTwo = (input) => {
   const [listOne, listTwo] = input
     .replace(/\r/g, '')
     .split('\n')
