@@ -4,6 +4,7 @@ const { join } = path
 const projectDirectory = path.resolve('.')
 const src = join(projectDirectory, 'src')
 const tests = join(projectDirectory, 'tests')
+const input = join(projectDirectory, 'input')
 
 const [day] = Deno.args
 const newDayRaw = day ?? (await getDay(src))
@@ -15,6 +16,7 @@ const create = createFiles(newDay, newDayRaw)
 await Promise.all([
   create.srcFile(src),
   create.testFile(tests),
+  create.inputFile(input),
 ])
 
 async function srcFile(src, day) {
@@ -83,10 +85,16 @@ Deno.test({
   await Deno.writeTextFile(nextDayTestPath, testContent)
 }
 
+async function inputFile(input, day) {
+  const nextDayInputPath = join(input, `${day}.txt`)
+  await Deno.writeTextFile(nextDayInputPath, '')
+}
+
 function createFiles(day, dayRaw) {
   return {
     testFile: (tests) => testFile(tests, day, dayRaw),
     srcFile: (src) => srcFile(src, day, dayRaw),
+    inputFile: (input) => inputFile(input, day),
   }
 }
 
