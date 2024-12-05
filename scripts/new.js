@@ -19,7 +19,7 @@ await Promise.all([
   create.inputFile(input),
 ])
 
-async function srcFile(src, day) {
+async function srcFile(src, day, dayRaw) {
   const FILE_NAME = 'index.js'
   const README = 'README.md'
 
@@ -46,10 +46,27 @@ export const main = async () => {
   const readmePath = join(nextDaySrcPath, README)
 
   const response = await fetch(`https://adventofcode.com/2024/day/${newDayRaw}`)
+  if (!response.ok) {
+    await Deno.writeTextFile(readmePath, '')
+    return
+  }
   const text = await response.text()
   const [readmeContent] = text.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)
+  const regex = /<\/article>([\s\S]*?)<\/main>/;
+  const cleanReadme = readmeContent.replace(regex, '</article></main>')
+  const [_, title] = cleanReadme.match(/--- (.+) ---/)
 
-  await Deno.writeTextFile(readmePath, readmeContent)
+  const projectReadmePath = join('.', README)
+  const projectReadme = await Deno.readTextFile(projectReadmePath)
+
+  const README_SEPARATOR = '\n## How to run'
+  const [table, body] = projectReadme.split(README_SEPARATOR)
+  const newRow = `| [${title}](https://adventofcode.com/2024/day/${dayRaw})       | \*\*  | [Link](./src/${day}/) |               |               |`
+
+
+  await Deno.writeTextFile(readmePath, cleanReadme)
+  const projectReadmeUpdated = table + newRow + '\n' + README_SEPARATOR + body
+  await Deno.writeTextFile(projectReadmePath, projectReadmeUpdated)
 }
 
 async function testFile(tests, day, dayRaw) {
