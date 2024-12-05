@@ -9,6 +9,8 @@ Advent of Code solved in Deno 🦕.
 | [Day 1: Historian Hysteria](https://adventofcode.com/2024/day/1) | \*\*  | [Link](./src/day_01/) | 2815556           | 23927637          |
 | [Day 2: Red-Nosed Reports](https://adventofcode.com/2024/day/2)  | \*\*  | [Link](./src/day_02/) | 402               | 455               |
 | [Day 3: Mull It Over](https://adventofcode.com/2024/day/3)       | \*\*  | [Link](./src/day_03/) | 171183089         | 63866497          |
+| [Day 4: Ceres Search](https://adventofcode.com/2024/day/4)       | \*\*  | [Link](./src/day_04/) | 2524              | 1873              |
+| [Day 5: Print Queue](https://adventofcode.com/2024/day/5)        | \*\*  | [Link](./src/day_05/) | 4185              | 4480              |
 
 ## How to run
 
