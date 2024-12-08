@@ -2,7 +2,7 @@
   "tasks": {
     "start": "deno run --allow-read src/main.js",
     "test": "deno test --allow-read --unsafely-ignore-certificate-errors --reporter=dot",
-    "new": "deno run --allow-write --allow-read --unsafely-ignore-certificate-errors --allow-net scripts/new.js",
+    "new": "deno run --allow-write --allow-read --allow-env --env-file --unsafely-ignore-certificate-errors --allow-net scripts/new.js",
     "fmt": "deno fmt"
   },
   "fmt": {
