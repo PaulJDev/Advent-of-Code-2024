@@ -1,5 +1,7 @@
 import * as path from 'jsr:@std/path'
 
+import { getDayInput } from './utils/getDayInput.js'
+
 const { join } = path
 const projectDirectory = path.resolve('.')
 const src = join(projectDirectory, 'src')
@@ -102,16 +104,17 @@ Deno.test({
   await Deno.writeTextFile(nextDayTestPath, testContent)
 }
 
-async function inputFile(input, day) {
+async function inputFile(input, day, dayRaw) {
   const nextDayInputPath = join(input, `${day}.txt`)
-  await Deno.writeTextFile(nextDayInputPath, '')
+  const inputContent = await getDayInput(dayRaw)
+  await Deno.writeTextFile(nextDayInputPath, inputContent)
 }
 
 function createFiles(day, dayRaw) {
   return {
     testFile: (tests) => testFile(tests, day, dayRaw),
     srcFile: (src) => srcFile(src, day, dayRaw),
-    inputFile: (input) => inputFile(input, day),
+    inputFile: (input) => inputFile(input, day, dayRaw),
   }
 }
 
