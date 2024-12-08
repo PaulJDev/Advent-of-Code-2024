@@ -1,6 +1,6 @@
-import { join } from 'jsr:@std/path'
+import { join, resolve } from 'jsr:@std/path'
 
-const PROJECT_DIRECTORY = path.resolve('.')
+const PROJECT_DIRECTORY = resolve('.')
 
 const SRC_FOLDER = 'src'
 const TESTS_FOLDER = 'tests'
