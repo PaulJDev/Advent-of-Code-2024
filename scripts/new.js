@@ -1,34 +1,31 @@
-import * as path from 'jsr:@std/path'
+import { join } from 'jsr:@std/path'
 
 import { getDayInput } from './utils/getDayInput.js'
-import { getDay } from './utils/getDAy.js'
-
-const { join } = path
-const projectDirectory = path.resolve('.')
-const src = join(projectDirectory, 'src')
-const tests = join(projectDirectory, 'tests')
-const input = join(projectDirectory, 'input')
+import { getDay } from './utils/getDay.js'
+import {
+  SRC,
+  TESTS,
+  INPUT,
+  SOLUTION_FILENAME,
+  README_FILENAME,
+} from './constants.js'
 
 const [day] = Deno.args
 
-const dayParams = await getDay(day, src)
-
+const dayParams = await getDay(day, SRC)
 const create = createFiles(dayParams)
 
 await Promise.all([
-  create.srcFile(src),
-  create.testFile(tests),
-  create.inputFile(input),
+  create.srcFile(SRC),
+  create.testFile(TESTS),
+  create.inputFile(INPUT),
 ])
 
 async function srcFile(src, { day, dayRaw }) {
-  const FILE_NAME = 'index.js'
-  const README = 'README.md'
-
   const nextDaySrcPath = join(src, day)
   await Deno.mkdir(nextDaySrcPath)
 
-  const solutionPath = join(nextDaySrcPath, FILE_NAME)
+  const solutionPath = join(nextDaySrcPath, SOLUTION_FILENAME)
   const solutionContent = `export const solvePartOne = (input) => {
   return null;
 }
@@ -45,7 +42,7 @@ export const main = async () => {
 `
   await Deno.writeTextFile(solutionPath, solutionContent)
 
-  const readmePath = join(nextDaySrcPath, README)
+  const readmePath = join(nextDaySrcPath, README_FILENAME)
 
   const response = await fetch(`https://adventofcode.com/2024/day/${newDayRaw}`)
   if (!response.ok) {
@@ -58,7 +55,7 @@ export const main = async () => {
   const cleanReadme = readmeContent.replace(regex, '</article></main>')
   const [_, title] = cleanReadme.match(/--- (.+) ---/)
 
-  const projectReadmePath = join('.', README)
+  const projectReadmePath = join('.', README_FILENAME)
   const projectReadme = await Deno.readTextFile(projectReadmePath)
 
   const README_SEPARATOR = '\n## How to run'
@@ -116,15 +113,4 @@ function createFiles(dayParams) {
     srcFile: (src) => srcFile(src, dayParams),
     inputFile: (input) => inputFile(input, dayParams),
   }
-}
-
-async function getDay(src) {
-  const days = []
-  for await (const { isDirectory, name } of Deno.readDir(src)) {
-    if (!isDirectory) continue
-    days.push(name)
-  }
-
-  const [lastDay] = days.at(-1).match(/\d+/)
-  return +lastDay + 1
 }
