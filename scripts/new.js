@@ -30,11 +30,11 @@ async function srcFile(src, day, dayRaw) {
 
   const solutionPath = join(nextDaySrcPath, FILE_NAME)
   const solutionContent = `export const solvePartOne = (input) => {
-  return input;
+  return null;
 }
 
 export const solvePartTwo = (input) => {
-  return input;
+  return null;
 }
 
 export const main = async () => {
