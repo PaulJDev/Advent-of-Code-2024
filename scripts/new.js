@@ -52,7 +52,7 @@ export const main = async () => {
   }
   const text = await response.text()
   const [readmeContent] = text.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)
-  const regex = /<\/article>([\s\S]*?)<\/main>/;
+  const regex = /<\/article>([\s\S]*?)<\/main>/
   const cleanReadme = readmeContent.replace(regex, '</article></main>')
   const [_, title] = cleanReadme.match(/--- (.+) ---/)
 
@@ -61,8 +61,8 @@ export const main = async () => {
 
   const README_SEPARATOR = '\n## How to run'
   const [table, body] = projectReadme.split(README_SEPARATOR)
-  const newRow = `| [${title}](https://adventofcode.com/2024/day/${dayRaw})       | \*\*  | [Link](./src/${day}/) |               |               |`
-
+  const newRow =
+    `| [${title}](https://adventofcode.com/2024/day/${dayRaw})       | \*\*  | [Link](./src/${day}/) |               |               |`
 
   await Deno.writeTextFile(readmePath, cleanReadme)
   const projectReadmeUpdated = table + newRow + '\n' + README_SEPARATOR + body
